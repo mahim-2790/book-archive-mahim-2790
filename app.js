@@ -36,6 +36,8 @@ const searchBooks = () => {
 
 // ----------------------------display books-------------------------
 const displayBooks = data => {
+    console.log(data);
+
     const bookNumber = data.numFound;
     if (bookNumber !== 0) {
         const searchNum = document.getElementById('search-numbers');
@@ -50,7 +52,7 @@ const displayBooks = data => {
             book?.author_name ? authorName = book.author_name : authorName = 'Unknown';
             //publisher
             let publisher;
-            book?.publisher ? publisher = book.publisher : publisher = 'Unknown';
+            book?.publisher ? publisher = book.publisher.slice(0, 5) : publisher = 'Unknown';
             //first publish year
             let publishYear;
             book?.first_publish_year ? publishYear = book.first_publish_year : publishYear = 'Unknown';
