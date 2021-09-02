@@ -29,15 +29,16 @@
 
 <body>
     <header class="my-3 text-center">
-        <h1>Find Your Books</h1>
+        <h1 class="text-secondary">Find Your Books</h1>
     </header>
     <main class="w-75 my-5 mx-auto">
         <!-- ---------search section--------------- -->
         <section class="mt-5">
             <div class="input-group mb-3 w-75 mx-auto">
-                <input id="search-input" type="text" class="form-control rounded" placeholder="Search by book name...."
-                    aria-label="Search by book name...." aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary ms-2 rounded" type="button" id="search-btn"
+                <input id="search-input" type="text" class="form-control rounded"
+                    placeholder="Search by book name or author name...." aria-label="Search by book name...."
+                    aria-describedby="button-addon2">
+                <button class="btn btn-danger ms-2 rounded" type="button" id="search-btn"
                     onclick="searchBooks()">Search</button>
             </div>
             <!-- ----------------spinner--------- -->
