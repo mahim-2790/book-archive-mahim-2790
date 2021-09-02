@@ -1,16 +1,26 @@
 const spinner = dis => {
     document.getElementById('spinner').style.display = dis;
 }
+
+const showError = (message = '') => {
+    const error = document.getElementById('error-message');
+    if (message.trim() !== '') {
+        error.innerText = message;
+        error.style.display = 'inline-block';
+    }
+    else {
+        error.textContent = '';
+        error.style.display = 'none';
+    }
+}
 const searchBooks = () => {
     document.getElementById('show-div').textContent = '';
     document.getElementById('search-numbers').textContent = '';
-    const error = document.getElementById('error-message');
-    error.textContent = '';
+    showError('');
     const inputField = document.getElementById('search-input');
     const searchValue = inputField.value;
     if (searchValue.trim() === '') {
-        error.innerText = 'Search with the name of book.';
-        error.style.display = 'inline-block';
+        showError('Search with the name of book.');
     }
     else {
         spinner('block');
@@ -22,14 +32,16 @@ const searchBooks = () => {
 }
 
 const displayBooks = data => {
-    const searchNum = document.getElementById('search-numbers');
-    searchNum.innerHTML = `<p>Showing ${data.docs.length} of ${data.numFound} results.</p>`;
-    searchNum.style.display = 'block';
-    data?.docs.forEach(book => {
-        const imgPath = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
-        const div = document.createElement('div');
-        div.classList.add('col');
-        div.innerHTML = `
+    const bookNumber = data.numFound;
+    if (bookNumber !== 0) {
+        const searchNum = document.getElementById('search-numbers');
+        searchNum.innerHTML = `<p>Showing ${data.docs.length} of ${bookNumber} results.</p>`;
+        searchNum.style.display = 'block';
+        data.docs.forEach(book => {
+            const imgPath = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
+            const div = document.createElement('div');
+            div.classList.add('col');
+            div.innerHTML = `
             <div class="card h-100">
                 <img src="${imgPath}" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -39,7 +51,11 @@ const displayBooks = data => {
                     <p class="card-text">Published On: ${book.first_publish_year}</p>
                 </div>
             </div>`;
-        document.getElementById('show-div').appendChild(div);
-    })
-    spinner('none');
+            document.getElementById('show-div').appendChild(div);
+        })
+        spinner('none');
+    } else {
+        spinner('none');
+        showError('No Book Found.')
+    }
 }
