@@ -44,7 +44,7 @@ const displayBooks = data => {
         data.docs.forEach(book => {
             // ----------checking if there is img ---------
             let imgPath;
-            book?.cover_i ? imgPath = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : imgPath = './error-img.png';
+            book?.cover_i ? imgPath = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : imgPath = './images/error-img.png';
             //author name
             let authorName;
             book?.author_name ? authorName = book.author_name : authorName = 'Unknown';
