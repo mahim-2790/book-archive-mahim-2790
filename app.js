@@ -1,7 +1,9 @@
+// ------spinner function-----------
 const spinner = dis => {
     document.getElementById('spinner').style.display = dis;
 }
 
+// ------------------error message-------------
 const showError = (message = '') => {
     const error = document.getElementById('error-message');
     if (message.trim() !== '') {
@@ -13,6 +15,7 @@ const showError = (message = '') => {
         error.style.display = 'none';
     }
 }
+// -----------------------search books-----------------------
 const searchBooks = () => {
     document.getElementById('show-div').textContent = '';
     document.getElementById('search-numbers').textContent = '';
@@ -31,6 +34,7 @@ const searchBooks = () => {
     }
 }
 
+// ----------------------------display books-------------------------
 const displayBooks = data => {
     const bookNumber = data.numFound;
     if (bookNumber !== 0) {
@@ -38,22 +42,33 @@ const displayBooks = data => {
         searchNum.innerHTML = `<p>Showing ${data.docs.length} of ${bookNumber} results.</p>`;
         searchNum.style.display = 'block';
         data.docs.forEach(book => {
-            const imgPath = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
+            // ----------checking if there is img ---------
+            let imgPath;
+            book?.cover_i ? imgPath = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : imgPath = './error-img.png';
+            //author name
+            let authorName;
+            book?.author_name ? authorName = book.author_name : authorName = 'Unknown';
+            //publisher
+            let publisher;
+            book?.publisher ? publisher = book.publisher : publisher = 'Unknown';
+            //first publish year
+            let publishYear;
+            book?.first_publish_year ? publishYear = book.first_publish_year : publishYear = 'Unknown';
             const div = document.createElement('div');
             div.classList.add('col');
             div.innerHTML = `
-            <div class="card h-100">
-                <img src="${imgPath}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">${book.title}</h5>
-                    <p class="card-text">Author: ${book.author_name}</p>
-                    <p class="card-text">Publisher: ${book.publisher}</p>
-                    <p class="card-text">Published On: ${book.first_publish_year}</p>
-                </div>
-            </div>`;
+                <div class="card h-100">
+                    <img src="${imgPath}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${book.title}</h5>
+                        <p class="card-text">Author: ${authorName}</p>
+                        <p class="card-text">Publisher: ${publisher}</p>
+                        <p class="card-text">Published On: ${publishYear}</p>
+                    </div>
+                </div>`;
             document.getElementById('show-div').appendChild(div);
-        })
-        spinner('none');
+            spinner('none');
+        });
     } else {
         spinner('none');
         showError('No Book Found.')
