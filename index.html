@@ -9,9 +9,53 @@
     <!-- ---------------bootstrap css----------------- -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- ------------style-------- -->
+    <style>
+        #spinner {
+            display: none;
+        }
+
+        #error-message {
+            display: none;
+        }
+
+        #search-numbers {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
+    <main class="container my-5">
+        <!-- ---------search section--------------- -->
+        <section class="my-5">
+            <div class="input-group mb-3">
+                <input id="search-input" type="text" class="form-control" placeholder="Search by book name...."
+                    aria-label="Search by book name...." aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="search-btn"
+                    onclick="searchBooks()">Search</button>
+            </div>
+            <!-- ----------------spinner--------- -->
+            <div class="d-flex justify-content-center">
+                <div id="spinner" class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <!-- ----------error message----------- -->
+            <div>
+                <span id="error-message"></span>
+            </div>
+            <!-- --------------search numbers---------------- -->
+            <div id="search-numbers" class="my-3">
+
+            </div>
+        </section>
+        <!-- --------------------------show result section--------------------- -->
+        <section>
+            <div class="row row-cols-1 row-cols-md-3 g-4" id="show-div">
+            </div>
+        </section>
+    </main>
     <!-- -------------------bootstrap js-------------------- -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
