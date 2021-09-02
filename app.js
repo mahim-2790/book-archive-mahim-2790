@@ -24,6 +24,7 @@ const searchBooks = () => {
     const searchValue = inputField.value;
     if (searchValue.trim() === '') {
         showError('Search with the name of book.');
+        searchValue = '';
     }
     else {
         spinner('block');
@@ -36,8 +37,6 @@ const searchBooks = () => {
 
 // ----------------------------display books-------------------------
 const displayBooks = data => {
-    console.log(data);
-
     const bookNumber = data.numFound;
     if (bookNumber !== 0) {
         const searchNum = document.getElementById('search-numbers');
@@ -56,13 +55,16 @@ const displayBooks = data => {
             //first publish year
             let publishYear;
             book?.first_publish_year ? publishYear = book.first_publish_year : publishYear = 'Unknown';
+            //title
+            let title;
+            book?.title ? title = book.title : title = 'Unknown';
             const div = document.createElement('div');
             div.classList.add('col');
             div.innerHTML = `
                 <div class="card h-100">
                     <img src="${imgPath}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">${book.title}</h5>
+                        <h5 class="card-title">${title}</h5>
                         <p class="card-text">Author: ${authorName}</p>
                         <p class="card-text">Publisher: ${publisher}</p>
                         <p class="card-text">Published On: ${publishYear}</p>
@@ -70,9 +72,11 @@ const displayBooks = data => {
                 </div>`;
             document.getElementById('show-div').appendChild(div);
             spinner('none');
+            document.getElementById('search-input').value = '';
         });
     } else {
         spinner('none');
-        showError('No Book Found.')
+        showError('No Book Found.');
+        document.getElementById('search-input').value = '';
     }
 }
